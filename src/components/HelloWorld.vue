@@ -2,7 +2,10 @@
   <div class="hello">
     <h1>{{ hello }}</h1>
 
-    <button @click="sayHello()">ClickMe</button>
+    <h2 v-if="isClicMode"> We change to click mode: {{ clicks }}</h2>
+
+    <button @click="clickMe()">ClickMe</button>
+
   </div>
 </template>
 
@@ -17,14 +20,19 @@ import { Options, Vue } from 'vue-class-component';
 export default class HelloWorld extends Vue {
   msg!: string
   hello: string = this.msg;
+  clicks = 0;
 
-  sayHello(): void {
-    console.log('Hello');
+  clickMe(): void {
     this.hello = 'Hello my friend';
+    this.clicks += 1;
   }
 
   mounted() {
     console.log('Im on mounted')
+  }
+
+  get isClicMode(): boolean {
+    return this.clicks > 0;
   }
 }
 </script>
